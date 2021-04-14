@@ -1,25 +1,42 @@
-import logo from './logo.svg';
-import './App.css';
+import React from 'react';
+import { connect } from 'react-redux';
+import { Main } from './Components/MainComponent';
+import { fetchData, fetchFluctuation, fetchMargin } from './store/actionCreators';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {}
+  }
+  componentDidMount() {
+    this.props.fetchData();
+    this.props.fetchFluctuation("top");
+    this.props.fetchMargin("top");
+    this.props.fetchMargin("bottom")
+  }
+  render() {
+    return (
+      <div>
+        <Main Recipe={this.props.Recipe} />
+      </div>
+    );
+  }
 }
 
-export default App;
+
+const mapStateToProps = state => ({
+  Recipe: state.Recipe,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  fetchData: () => dispatch(fetchData()),
+  fetchMargin: (parameter) => dispatch(fetchMargin(parameter)),
+  fetchFluctuation: (parameter) => dispatch(fetchFluctuation(parameter)),
+});
+
+const AppContainer = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
+
+export default AppContainer;
