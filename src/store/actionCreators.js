@@ -22,9 +22,9 @@ export const highFluctuation = (data) => ({
     fluctuationHigh: data
 })
 
-export const fetchData = () => (dispatch) => {
+export const fetchData = (parameter) => (dispatch) => {
 
-    return fetch(baseUrl, {
+    return fetch(`${baseUrl}${parameter}`, {
         method: 'get',
     })
         .then(response => {

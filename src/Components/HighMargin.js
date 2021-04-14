@@ -23,7 +23,7 @@ function HighMargin(props) {
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Typography variant="caption" component="div" color="textSecondary">{`${percentage(data.margin)}%`}</Typography>
+                        <Typography variant="caption" component="div" color="light">{`${percentage(data.margin)}%`}</Typography>
                     </Box>
                 </Box>
             </div>

@@ -12,8 +12,9 @@ class ListComponent extends React.Component {
         this.checkAllBoxes = this.checkAllBoxes.bind(this);
     }
     checkAllBoxes() {
-        let newArr = this.state.checked.map(data => !this.state.parentbox);
-        this.setState({ parentbox: !this.state.parentbox, checked: newArr })
+        let oldState = !this.state.parentbox
+        let newArr = this.state.checked.map(data => oldState);
+        this.setState({ parentbox: oldState, checked: newArr })
     }
     onClickCheckBox(index) {
         let newArr = [...this.state.checked];
@@ -35,7 +36,12 @@ class ListComponent extends React.Component {
 
     render() {
         var tableColor = ["table-primary", "table-danger", "table-success", "table-info", "table-warning"];
+        const emptyRecipe = <div>
+            <p className="text-center">
+                <h3>Currently nothing to Show Here</h3>
 
+            </p>
+        </div >
         const allList = this.props.Recipe.allRecipe?.results.map((recipe, index) => {
             return (
                 <tr key={index} className={tableColor[index % 5]} data-toggle="tooltip" data-placement="top" title={recipe.name} >
@@ -70,16 +76,16 @@ class ListComponent extends React.Component {
                 </tr>
             )
         });
-        const formCheclbox =
+        const formChecKbox =
             <div className="form-check">
-                <input className="form-check-input-xl" type="checkbox" value="" id="flexCheckDefault" />
+                <input onClick={(e) => this.checkAllBoxes(e)} className="form-check-input-xl" type="checkbox" value="" id="flexCheckDefault" />
             </div>
         return (
             <div className="col-12 col-md-12 " style={{ zIndex: 2 }}>
                 <table className="table table-borderless small rounded ">
                     <thead className="thead-dark">
                         <tr>
-                            <th scope="col" onClick={(e) => this.checkAllBoxes(e)}>{formCheclbox}</th>
+                            <th scope="col" >{formChecKbox}</th>
                             <th scope="col">NAME</th>
                             <th scope="col">LAST UPDATED</th>
                             <th scope="col">COGS%</th>
@@ -91,7 +97,7 @@ class ListComponent extends React.Component {
                         </tr>
                     </thead>
                     <tbody>
-                        {allList}
+                        {allList && allList.length ? allList : emptyRecipe}
                     </tbody>
                 </table>
             </div>

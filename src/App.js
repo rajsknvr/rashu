@@ -9,7 +9,7 @@ export class App extends React.Component {
     this.state = {}
   }
   componentDidMount() {
-    this.props.fetchData();
+    this.props.fetchData("");
     this.props.fetchFluctuation("top");
     this.props.fetchMargin("top");
     this.props.fetchMargin("bottom")
@@ -17,7 +17,7 @@ export class App extends React.Component {
   render() {
     return (
       <div>
-        <Main Recipe={this.props.Recipe} />
+        <Main Recipe={this.props.Recipe} fetchData={this.props.fetchData} />
       </div>
     );
   }
@@ -29,7 +29,7 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = (dispatch) => ({
-  fetchData: () => dispatch(fetchData()),
+  fetchData: (parameter) => dispatch(fetchData(parameter)),
   fetchMargin: (parameter) => dispatch(fetchMargin(parameter)),
   fetchFluctuation: (parameter) => dispatch(fetchFluctuation(parameter)),
 });

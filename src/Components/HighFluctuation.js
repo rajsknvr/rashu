@@ -4,6 +4,7 @@ import Typography from '@material-ui/core/Typography';
 import Box from '@material-ui/core/Box';
 import nameReducer from '../Utility/nameReducer'
 import percentage from '../Utility/percentage'
+import ArrowUpwardIcon from '@material-ui/icons/ArrowUpward';
 function HighFluctuation(props) {
     const highMarginData = props.highFluctuation?.results.map((data, index) => {
         return (
@@ -11,8 +12,8 @@ function HighFluctuation(props) {
                 <div className="small">{nameReducer(data.name)}</div>
                 <Box position="relative" display="inline-flex">
 
-                    <CircularProgress value={percentage(data.fluctuation)} variant="determinate" {...props} />
-
+                    {/* <CircularProgress value={percentage(data.fluctuation)} variant="determinate" {...props} /> */}
+                    <ArrowUpwardIcon color="primary" />
                     <Box
                         top={0}
                         left={0}
@@ -23,8 +24,9 @@ function HighFluctuation(props) {
                         alignItems="center"
                         justifyContent="center"
                     >
-                        <Typography variant="caption" component="div" color="textSecondary">{`${percentage(data.fluctuation)}%`}</Typography>
+
                     </Box>
+                    <Typography variant="caption" component="div" color="light" >{`${percentage(data.fluctuation)}%`}</Typography>
                 </Box>
             </div>
         )
@@ -32,7 +34,7 @@ function HighFluctuation(props) {
     return (
         <div className="card">
             <div class="card-header bg-dark text-white">
-                Top Fluctuati Recipes
+                Top Fluctuating Recipes
             </div>
             <div className="card-body row bg-secondary text-white rounded">
                 {highMarginData}
