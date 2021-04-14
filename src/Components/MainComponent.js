@@ -1,7 +1,7 @@
 import React, { Suspense } from 'react';
 import TopPanel from './topPanel';
 import CircularProgress from '@material-ui/core/CircularProgress';
-import TabCompnent from './TabComponent'
+const TabCompnent = React.lazy(() => import('./TabComponent'));
 const ListComponent = React.lazy(() => import('./ListComponent'));
 export class Main extends React.Component {
     componentDidUpdate() {
@@ -14,7 +14,10 @@ export class Main extends React.Component {
                     <TopPanel Recipe={this.props.Recipe} />
                 </div>
                 <div className="row mt-3 ml-2">
-                    <TabCompnent fetchData={this.props.fetchData} />
+                    <Suspense fallback={<div>Loading Please wait....</div>}>
+                        <TabCompnent fetchData={this.props.fetchData} />
+                    </Suspense>
+
                 </div>
                 <div className="row mt-1">
                     <Suspense fallback={<div><CircularProgress color="secondary" /></div>}>
